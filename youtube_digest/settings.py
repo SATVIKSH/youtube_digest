@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 import dj_database_url
 from pathlib import Path
 import os
+from decouple import config
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -20,12 +21,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-_4__vc66#&cu-ggz4aj*=vt5)8lj=&gv9qm2wy9p(16c-0ipn^'
+SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = config('DEBUG',cast=bool)
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = config('ALLOWED_HOSTS').split(",")
 
 
 # Application definition
@@ -83,7 +84,7 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-DATABASES["default"]=dj_database_url.parse('postgres://tube_digest_user:e0uF19ebVAfOuA0HxWGXJiXKdqBtp3Ix@dpg-cpma5qg8fa8c73afgfe0-a.oregon-postgres.render.com/tube_digest')
+DATABASES["default"]=dj_database_url.parse(config('DATABASE_URL'))
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.postgresql',

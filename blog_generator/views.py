@@ -17,7 +17,9 @@ import assemblyai as aai
 from googleapiclient.discovery import build 
 from rest_framework.authtoken.models import Token
 from django.contrib.auth.models import User
-API_KEY = 'AIzaSyDSpDgFUo7hEgtGbCHNxAXMF6_QlbTjPMU'
+from decouple import config
+
+API_KEY = config('API_KEY')
 
 @api_view(['GET'])
 def login(request):
@@ -138,7 +140,7 @@ def get_transcription(link):
 def get_summary(titles,transcriptions):
     enumerated_transcripts= [f"{i + 1}.{titles[i]}: {query} \n" for i, query in enumerate(transcriptions)]
     client = Groq(
-    api_key="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",
+    api_key=config("GROQ_API_KEY"),
     )
     prompt=f"Here is the list of some youtube videos' Transcripts -> \n {enumerated_transcripts}\n .Create an elaborate blog article including points from all the videos. No need to mention the transcripts or videos just make the article. Make sure it is in a human readable form and a little bit informal. Article:"
     response =client.chat.completions.create(
