@@ -27,7 +27,7 @@ SECRET_KEY = config('SECRET_KEY')
 DEBUG = config('DEBUG',cast=bool)
 
 ALLOWED_HOSTS = config('ALLOWED_HOSTS').split(",")
-CSRF_TRUSTED_ORIGINS= ["https://youtubedigest-production.up.railway.app/"]
+CSRF_TRUSTED_ORIGINS= ["https://youtubedigest-production.up.railway.app"]
 
 
 # Application definition
