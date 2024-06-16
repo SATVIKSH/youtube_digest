@@ -18,7 +18,7 @@ from googleapiclient.discovery import build
 from rest_framework.authtoken.models import Token
 from django.contrib.auth.models import User
 from decouple import config
-
+import tempfile
 API_KEY = config('API_KEY')
 
 @api_view(['GET'])
@@ -127,15 +127,37 @@ def yt_title(link):
 
 
 
+# def get_transcription(link):
+#     yt=YouTube(link)
+#     audio=yt.streams.filter(only_audio=True).first()
+#     out_file=audio.download(output_path=settings.MEDIA_ROOT,filename="audio.mp3")
+#     aai.settings.api_key="5d19f4136c614d01b3622cbdf7df831e"
+#     transcriber=aai.Transcriber()
+#     transcript=transcriber.transcribe(out_file)
+#     os.remove(out_file)
+#     return transcript.text
+
 def get_transcription(link):
-    yt=YouTube(link)
-    audio=yt.streams.filter(only_audio=True).first()
-    out_file=audio.download(output_path=settings.MEDIA_ROOT,filename="audio.mp3")
-    aai.settings.api_key="5d19f4136c614d01b3622cbdf7df831e"
-    transcriber=aai.Transcriber()
-    transcript=transcriber.transcribe(out_file)
-    os.remove(out_file)
-    return transcript.text
+    try:
+        yt = YouTube(link)
+        audio = yt.streams.filter(only_audio=True).first()
+        
+        with tempfile.NamedTemporaryFile(delete=False, suffix=".mp3") as temp_audio_file:
+            out_file = audio.download(output_path=os.path.dirname(temp_audio_file.name), filename=os.path.basename(temp_audio_file.name))
+        aai.settings.api_key = "5d19f4136c614d01b3622cbdf7df831e"
+        
+        transcriber = aai.Transcriber()
+        transcript = transcriber.transcribe(out_file)
+        
+        os.remove(out_file)
+        
+        return transcript.text
+    
+    except Exception as e:
+        return f"An error occurred: {str(e)}"
+    
+
+
 
 def get_summary(titles,transcriptions):
     enumerated_transcripts= [f"{i + 1}.{titles[i]}: {query} \n" for i, query in enumerate(transcriptions)]
