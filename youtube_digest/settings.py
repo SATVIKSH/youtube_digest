@@ -27,6 +27,7 @@ SECRET_KEY = config('SECRET_KEY')
 DEBUG = config('DEBUG',cast=bool)
 
 ALLOWED_HOSTS = config('ALLOWED_HOSTS').split(",")
+CSRF_TRUSTED_ORIGINS= ["https://youtubedigest-production.up.railway.app/"]
 
 
 # Application definition
@@ -78,7 +79,6 @@ WSGI_APPLICATION = 'youtube_digest.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
-
 DATABASES = {
 }
 
