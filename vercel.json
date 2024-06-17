@@ -1,4 +1,5 @@
 {
+    "version":2,
     "builds": [{
         "src": "youtube_digest/wsgi.py",
         "use": "@vercel/python",
