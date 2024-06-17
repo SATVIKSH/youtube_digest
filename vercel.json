@@ -6,7 +6,7 @@
         }
     ],
     "functions":{
-        "youtube_digest/blog_generator/**/*": {
+        "api/index.py": {
             "maxDuration": 60
           }
     }
