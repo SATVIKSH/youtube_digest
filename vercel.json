@@ -6,7 +6,7 @@
         }
     ],
     "functions":{
-        "blog_generator/views.py": {
+        "app/api/**/*": {
             "maxDuration": 60
           }
     }
