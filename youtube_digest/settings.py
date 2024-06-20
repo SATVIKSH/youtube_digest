@@ -27,7 +27,7 @@ SECRET_KEY = config('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG',cast=bool)
 
-ALLOWED_HOSTS = ["127.0.0.1","localhost","youtubedigest-production-f6bd.up.railway.app",".vercel.app" ]
+ALLOWED_HOSTS = ["127.0.0.1","localhost","youtubedigest-production-f6bd.up.railway.app",".vercel.app" ,"*.render.com"]
 CSRF_TRUSTED_ORIGINS= ["https://youtubedigest-production-f6bd.up.railway.app"]
 
 
@@ -143,7 +143,7 @@ MEDIA_URL='/media/'
 MEDIA_ROOT=os.path.join(BASE_DIR,'media')
 
 CELERY_BROKER_URL = 'redis://default:mWHmnhnuUVKzsvqzJRPwIUwRMdIptESX@roundhouse.proxy.rlwy.net:25177'
-CELERY_RESULT_BACKEND = 'redis://default:mWHmnhnuUVKzsvqzJRPwIUwRMdIptESX@roundhouse.proxy.rlwy.net:25177'
+CELERY_RESULT_BACKEND = 'django-db'
 CELERY_ACCEPT_CONTENT = ['application/json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
