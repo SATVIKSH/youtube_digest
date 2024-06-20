@@ -143,7 +143,7 @@ MEDIA_URL='/media/'
 MEDIA_ROOT=os.path.join(BASE_DIR,'media')
 
 CELERY_BROKER_URL = 'redis://default:mWHmnhnuUVKzsvqzJRPwIUwRMdIptESX@roundhouse.proxy.rlwy.net:25177'
-CELERY_RESULT_BACKEND = 'django-db'
+CELERY_RESULT_BACKEND = 'redis://default:mWHmnhnuUVKzsvqzJRPwIUwRMdIptESX@roundhouse.proxy.rlwy.net:25177'
 CELERY_ACCEPT_CONTENT = ['application/json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
