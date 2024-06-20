@@ -27,8 +27,8 @@ SECRET_KEY = config('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG',cast=bool)
 
-ALLOWED_HOSTS = ["127.0.0.1","localhost","youtubedigest-production.up.railway.app",".vercel.app" ]
-CSRF_TRUSTED_ORIGINS= ["https://youtubedigest-production.up.railway.app"]
+ALLOWED_HOSTS = ["127.0.0.1","localhost","youtubedigest-production-f6bd.up.railway.app",".vercel.app" ]
+CSRF_TRUSTED_ORIGINS= ["https://youtubedigest-production-f6bd.up.railway.app"]
 
 
 # Application definition
