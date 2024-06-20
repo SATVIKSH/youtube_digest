@@ -13,6 +13,7 @@ import dj_database_url
 from pathlib import Path
 import os
 from decouple import config
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -26,7 +27,7 @@ SECRET_KEY = config('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG',cast=bool)
 
-ALLOWED_HOSTS = ["127.0.0.1","youtubedigest-production.up.railway.app",".vercel.app" ]
+ALLOWED_HOSTS = ["127.0.0.1","localhost","youtubedigest-production.up.railway.app",".vercel.app" ]
 CSRF_TRUSTED_ORIGINS= ["https://youtubedigest-production.up.railway.app"]
 
 
@@ -40,9 +41,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'blog_generator',
-    # 'corsheaders',
     'rest_framework',
-    'rest_framework.authtoken'
+    'rest_framework.authtoken',
+    'django_celery_results'
 ]
 
 MIDDLEWARE = [
@@ -75,6 +76,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'youtube_digest.wsgi.application'
+
 
 
 # Database
@@ -140,9 +142,9 @@ CORS_ALLOW_ALL_ORIGINS = True
 MEDIA_URL='/media/'
 MEDIA_ROOT=os.path.join(BASE_DIR,'media')
 
-CELERY_BROKER_URL = config('REDIS_URL')
-CELERY_RESULT_BACKEND = config('REDIS_URL')
-CELERY_ACCEPT_CONTENT = ['json']
+CELERY_BROKER_URL = 'redis://localhost:6379'
+CELERY_RESULT_BACKEND = 'django-db'
+CELERY_ACCEPT_CONTENT = ['application/json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
-CELERY_TIMEZONE = 'UTC'
+CELERY_TIMEZONE = 'Asia/Kolkata'

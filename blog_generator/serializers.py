@@ -15,5 +15,10 @@ class UserSerializer(serializers.ModelSerializer):
 class YoutubeSearchSerializer(serializers.Serializer):
     search_string = serializers.CharField(max_length=1000)
 
+class CheckStatusSerializer(serializers.Serializer):
+    task_id = serializers.CharField(max_length=1000)
+    
+
+
 
     #AIzaSyDSpDgFUo7hEgtGbCHNxAXMF6_QlbTjPMU

@@ -8,5 +8,6 @@ urlpatterns=[
       path('get-articles/',views.get_user_articles,name='get-articles'),
          path('delete-article/',views.delete_user_article,name='delete-article'),
       path('test-token/',views.test_token,name='test_token'),
-    path('youtube-search/',views.process_youtube_search_string,name='youtube-search')
+    path('youtube-search/',views.process_youtube_search_string,name='youtube-search'),
+    path('check-status/',views.check_api_status,name='check-status/')
 ]
