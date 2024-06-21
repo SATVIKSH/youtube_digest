@@ -6,13 +6,13 @@ from django.conf import settings
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE','youtube_digest.settings')
 
-app=Celery('youtube_digest')
-app.conf.enable_utc=False
-app.conf.update(timezone='Asia/Kolkata')
+app=Celery('youtube_digest',backend='redis://default:mWHmnhnuUVKzsvqzJRPwIUwRMdIptESX@roundhouse.proxy.rlwy.net:25177',
+             broker='redis://default:mWHmnhnuUVKzsvqzJRPwIUwRMdIptESX@roundhouse.proxy.rlwy.net:25177')
+
 
 app.config_from_object(settings,namespace='CELERY')
 
-app.autodiscover_tasks()
+app.autodiscover_tasks(lambda:settings.INSTALLED_APPS)
 
 @app.task(bind=True)
 def debug_task(self):

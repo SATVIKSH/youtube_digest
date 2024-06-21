@@ -87,7 +87,7 @@ DATABASES = {
 DATABASES["default"]=dj_database_url.parse(config('DATABASE_URL'))
 # DATABASES = {
 #     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
+#         'ENGINE': 'django.db.backends.sqlite3',
 #         'NAME': BASE_DIR / 'db.sqlite3',
 #         'USER':'Satvik',
 #         'PASSWORD':'Sharma@091201',
@@ -147,4 +147,3 @@ CELERY_RESULT_BACKEND = 'django-db'
 CELERY_ACCEPT_CONTENT = ['application/json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
-CELERY_TIMEZONE = 'Asia/Kolkata'

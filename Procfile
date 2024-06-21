@@ -1,1 +1,1 @@
-web: gunicorn youtube_digest.wsgi 
+web: celery -A youtube_digest worker --loglevel=info & python manage.py migrate && gunicorn youtube_digest.wsgi  
