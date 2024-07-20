@@ -8,11 +8,13 @@ import os
 from pytube import YouTube
 from markdown import markdown
 from decouple import config
-from googleapiclient.discovery import build 
+from googleapiclient.discovery import build
+from requests import HTTPError 
 from .models import TranscriptModel,UserBlogs
 import json
+import httplib2
 
-
+API_KEY = 'AIzaSyDSpDgFUo7hEgtGbCHNxAXMF6_QlbTjPMU'
 @shared_task
 def process_youtube_search_string_task(api_key, search_string, user_id=None):
     top_videos = get_top_youtube_videos(api_key, search_string)
@@ -94,17 +96,25 @@ def get_summary(titles,transcriptions):
 
 
 def get_top_youtube_videos(api_key, search_query):
-    youtube = build('youtube', 'v3', developerKey=api_key)
-    search_response = youtube.search().list(
-        q=search_query,
-        part='snippet',
-        maxResults=5,
-        type='video',
-        eventType='completed',
-        videoDuration='medium',
-        videoEmbeddable='true',  
-        safeSearch='strict'
-    ).execute()
+    http = httplib2.Http(timeout=60)
+    youtube = build('youtube', 'v3', developerKey=API_KEY,http=http)
+    try:
+        search_response = youtube.search().list(
+            q=search_query,
+            part='snippet',
+            maxResults=5,
+            type='video',
+            eventType='completed',
+            videoDuration='medium',
+            videoEmbeddable='true',  
+            safeSearch='strict'
+        ).execute()
+    except HTTPError as e:
+        print(f"An HTTP error occurred: {e}")
+        return []
+    except Exception as e:
+        print(f"An error occurred: {e}")
+        return []
     videos = []
     for item in search_response['items']:
         video_id = item['id']['videoId']

@@ -12,7 +12,7 @@ from .tasks import process_youtube_search_string_task
 from decouple import config
 import json
 from celery.result import AsyncResult 
-API_KEY = config('API_KEY')
+API_KEY = 'AIzaSyDSpDgFUo7hEgtGbCHNxAXMF6_QlbTjPMU'
 
 
 @api_view(['GET'])
